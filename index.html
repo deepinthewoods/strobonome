@@ -91,6 +91,7 @@ function tick() {
     var now = Date.now();
     var dt = now - lastUpdate;
     lastUpdate = now;
+	document.getElementsByTagName("BODY")[0].style.backgroundColor = "rgb(100, 100, 100)";
 
     update(dt);
     //render(dt);
