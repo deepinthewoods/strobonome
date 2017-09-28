@@ -151,7 +151,7 @@ function setClearColor(int patt) {
 				var a = partial / flashTime;
 				a = 0;
 				//Gdx.app.log("met",  "alpha " + a);
-				glClearColor(a, a, a, 1);
+				glClearColor = {a, a, a, 1};
 			}
 			break;
 		case 2://quick flash
@@ -169,7 +169,7 @@ function setClearColor(int patt) {
 				var a = partial / flashTime;
 				a = 0;
 				//Gdx.app.log("met",  "alpha " + a);
-				glClearColor(a, a, a, 1);
+				glClearColor = {a, a, a, 1};
 			}
 			break;
 		case 3://med flash
@@ -186,7 +186,7 @@ function setClearColor(int patt) {
 				var a = partial / flashTime;
 				a = 0;
 				//Gdx.app.log("met",  "alpha " + a);
-				glClearColor(a, a, a, 1);
+				glClearColor = {a, a, a, 1};
 			}
 			break;
 		case 4://half flash
