@@ -72,6 +72,136 @@ output.innerHTML = slider.value;
 slider.oninput = function() {
   output.innerHTML = this.value;
 }
+
+var lastUpdate = Date.now();
+var myInterval = setInterval(tick, 0);
+var bpm = 40;
+	var stepSize = 1.5f;
+	var accum;
+	var step, pattern = 2;
+	var timeSig = 4;
+	var partial;
+	var flashTime = .3f;
+	var sigID = 1;
+	var PATTERN_NAMES = {"Quick Fade", "Half Fade", "Quick Flash", "Qtr Flash", "Half Flash"};
+	var SIG_LABELS = {"3/4", "4/4", "5/4", "7/4"};
+	var SIG_VALUES = {3, 4, 5, 7};
+function tick() {
+    var now = Date.now();
+    var dt = now - lastUpdate;
+    lastUpdate = now;
+
+    update(dt);
+    //render(dt);
+}
+var accum = 0.0;
+function update(var dt){
+	accum += dt;
+	
+		if (accum > stepSize) {
+			accum -= stepSize;
+			step++;
+			partial = 0f;
+			if (step >= timeSig ) {
+				step = 0;
+			}
+		}
+		partial += dt;
+		setClearColor(pattern);
+}
+var glClearColor = {0, 0, 0, 0};
+function setClearColor(int patt) {
+		switch (patt) {
+		case 0://quick fade
+			flashTime = .3f;
+			if (partial < flashTime ) {
+				var a = 1f - partial / flashTime;
+				
+				if (step == 0)
+					glClearColor = {a, 0, 0, 1};
+				else 
+					glClearColor = {a, a, a, 1};
+			} else {
+				var a = partial / flashTime;
+				a = 0;
+				//Gdx.app.log("met",  "alpha " + a);
+				glClearColor(a, a, a, 1);
+			}
+			break;
+			
+		case 1://half fade
+			flashTime = stepSize / 2f;;
+			if (partial < flashTime ) {
+				var a = partial / flashTime;
+				a = a * a * a;
+				a = 1f - a;
+				if (step == 0)
+					glClearColor = {a, 0, 0, 1};
+				else 
+					glClearColor = {a, a, a, 1};
+			} else {
+				var a = partial / flashTime;
+				a = 0;
+				//Gdx.app.log("met",  "alpha " + a);
+				glClearColor(a, a, a, 1);
+			}
+			break;
+		case 2://quick flash
+			flashTime = Math.min(.3f, stepSize / 3f);;
+			flashTime = 1f/30f;
+			if (partial < flashTime ) {
+				var a = partial / flashTime;
+				a = a * a * a;
+				a = 1f;
+				if (step == 0)
+					glClearColor = {a, 0, 0, 1};
+				else 
+					glClearColor = {a, a, a, 1};
+			} else {
+				var a = partial / flashTime;
+				a = 0;
+				//Gdx.app.log("met",  "alpha " + a);
+				glClearColor(a, a, a, 1);
+			}
+			break;
+		case 3://med flash
+			flashTime = stepSize / 4f;;
+			if (partial < flashTime ) {
+				var a = partial / flashTime;
+				a = a * a * a;
+				a = 1f;
+				if (step == 0)
+					glClearColor = {a, 0, 0, 1};
+				else 
+					glClearColor = {a, a, a, 1};
+			} else {
+				var a = partial / flashTime;
+				a = 0;
+				//Gdx.app.log("met",  "alpha " + a);
+				glClearColor(a, a, a, 1);
+			}
+			break;
+		case 4://half flash
+			flashTime = stepSize / 2f;;
+			if (partial < flashTime ) {
+				var a = partial / flashTime;
+				a = a * a * a;
+				a = 1f;
+				if (step == 0)
+					glClearColor = {a, 0, 0, 1};
+				else 
+					glClearColor = {a, a, a, 1};
+			} else {
+				var a = partial / flashTime;
+				a = 0;
+				//Gdx.app.log("met",  "alpha " + a);
+				glClearColor(a, a, a, 1);
+			}
+			break;
+		}
+		
+	}
+
 </script>
 
 </html>
