@@ -108,8 +108,12 @@ function update(var dt){
 		}
 		partial += dt;
 		setClearColor(pattern);
+		document.getElementsByTagName("BODY")[0].style.backgroundColor = getColor(glClearColor);
 }
 var glClearColor = {0, 0, 0, 0};
+function getColor(var color){
+	return "rgb(" + color[0] + ", " + color[1] + ", " + color[2] + ")";
+}
 function setClearColor(int patt) {
 		switch (patt) {
 		case 0://quick fade
