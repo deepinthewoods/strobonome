@@ -76,23 +76,7 @@ slider.oninput = function() {
 
 	
 
-function update(var dt){
-	accum += dt;
-	
-		if (accum > stepSize) {
-			accum -= stepSize;
-			step++;
-			partial = 0f;
-			if (step >= timeSig ) {
-				step = 0;
-			}
-		}
-		partial += dt;
-		//setClearColor(pattern);
-		//document.getElementsByTagName("BODY")[0].style.backgroundColor = getColor(glClearColor);
-		document.getElementsByTagName("BODY")[0].style.backgroundColor = "rgb(100, 100, 100)";
 
-}
 
 
 </script>
