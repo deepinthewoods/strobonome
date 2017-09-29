@@ -3,8 +3,8 @@
 <head>
 <style type="text/css">
   body {
-    color: purple;
-    background-color: #d8da3d }
+    color: darkgray;
+    background-color: darkgray }
 	
 #slidecontainer {
     width: 100%; /* Width of the outside container */
@@ -46,22 +46,35 @@
 
 <body>
 
-<!-- Site navigation menu -->
-<ul class="navbar">
-  <li><a href="index.html">Home page</a>
-  <li><a href="musings.html">Musings</a>
-  <li><a href="town.html">My town</a>
-  <li><a href="links.html">Links</a>
-</ul>
+
 
 <!-- Main content -->
-<h1>My first styled page</h1>
+<h1>
 
 <div id="slidecontainer">
-  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-  <p>Value: <span id="demo"></span></p>
+  <input type="range" min="30" max="180" value="40" class="slider" id="myRange">
+  <p>
+  BPM: <span id="demo"></span>
+  
+  <button onclick="inc()"> + </button>
+  <button onclick="dec()"> - </button>
+  </p>
 </div>
 
+
+<form action="">
+  <label><input type="radio" name="flash" value="Short" id="shortflash" checked = "checked"> Short<br></label>
+  <label><input type="radio" name="flash" value="Quarter" id="qtrflash"> Qtr<br></label>
+  <label><input type="radio" name="flash" value="Half" id = halfflash"> Half</label>
+</form>
+
+<br><br><br>
+<form action="">
+  <input type="checkbox" name="timesig" value="three" id="threefour"> 3/4<br>
+</form>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</h1>
 </body>
 
 <script>
@@ -71,13 +84,81 @@ output.innerHTML = slider.value;
 
 slider.oninput = function() {
   output.innerHTML = this.value;
+  stepSize = 60.0 / this.value;
 }
 
 
+var lastUpdate = Date.now();
+var myInterval = setInterval(tick, 0);
+function tick() {
+    var now = Date.now();
+    var dt = now - lastUpdate;
+    lastUpdate = now;
+	//document.getElementsByTagName("BODY")[0].style.backgroundColor = "rgb(100, 100, 100)";
+
+    update(dt / 1000.0);
+    //render(dt);
+}
+var accum = 0.0;
+var stepSize = 1.5;
+var partial = 0.0;
+var step = 0;
+var timeSig = 4;
+var oneColor = "rgb(255, 00, 00)";
+var otherColor = "rgb(255, 255, 255)";
+var noColor = "rgb(00, 00, 00)";
+function update(dt){
+		accum += dt;
+		
+		if (accum > stepSize) {
+			accum -= stepSize;
+			step++;
+			partial = 0.0;
+			if (step >= timeSig ) {
+				step = 0;
+			}
+		}
+		partial += dt;
+		var flashColor;
+		if (step == 0)
+			flashColor = oneColor;
+		else flashColor = otherColor;
+		
+		var flashInterval = stepSize / 2.0;
+		if (document.getElementById("qtrflash").checked)
+			flashInterval = stepSize / 4.0;
+		else if (document.getElementById("shortflash").checked)
+			flashInterval = 1.0 / 20.0;
+		
+		timeSig = 4;
+		if (document.getElementById("threefour").checked)
+			timeSig = 3;
+		//if (partial < 0.5)
+		//	document.getElementsByTagName("BODY")[0].style.backgroundColor = ;
+		//else 
+		//	document.getElementsByTagName("BODY")[0].style.backgroundColor = "rgb(00, 00, 00)";
+		if (partial < flashInterval)
+			document.getElementsByTagName("BODY")[0].style.backgroundColor = flashColor;
+		else 
+			document.getElementsByTagName("BODY")[0].style.backgroundColor = noColor;
+		
+		
+		//setClearColor(pattern);
+		//document.getElementsByTagName("BODY")[0].style.backgroundColor = getColor(glClearColor);
+		//document.getElementsByTagName("BODY")[0].style.backgroundColor = "rgb(100, 100, 100)";
+
+}//*/
+
+function inc(){
+	slider.value++;
 	
-
-
-
+	slider.oninput();
+}
+function dec(){
+	slider.value--;
+	
+	slider.oninput();
+}
 
 </script>
 
