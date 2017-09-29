@@ -73,19 +73,7 @@ slider.oninput = function() {
   output.innerHTML = this.value;
 }
 
-var lastUpdate = Date.now();
-var myInterval = setInterval(tick, 0);
-var bpm = 40;
-	var stepSize = 1.5f;
-	var accum;
-	var step, pattern = 2;
-	var timeSig = 4;
-	var partial;
-	var flashTime = .3f;
-	var sigID = 1;
-	var PATTERN_NAMES = ["Quick Fade", "Half Fade", "Quick Flash", "Qtr Flash", "Half Flash"];
-	var SIG_LABELS = ["3/4", "4/4", "5/4", "7/4"];
-	var SIG_VALUES = [3, 4, 5, 7];
+
 	
 function tick() {
     var now = Date.now();
@@ -114,35 +102,7 @@ function update(var dt){
 		document.getElementsByTagName("BODY")[0].style.backgroundColor = "rgb(100, 100, 100)";
 
 }
-var glClearColor = [0, 0, 0, 0];
-function getColor(var color){
-	return "rgb(" + color[0] + ", " + color[1] + ", " + color[2] + ")";
-}
-function setClearColor(int patt) {
-		switch (patt) {
-		default:
-		case 2://quick flash
-			flashTime = Math.min(.3f, stepSize / 3f);;
-			flashTime = 1f/30f;
-			if (partial < flashTime ) {
-				var a = partial / flashTime;
-				a = a * a * a;
-				a = 1f;
-				if (step == 0)
-					glClearColor = [a, 0, 0, 1];
-				else 
-					glClearColor = [a, a, a, 1];
-			} else {
-				var a = partial / flashTime;
-				a = 0;
-				//Gdx.app.log("met",  "alpha " + a);
-				glClearColor = [a, a, a, 1];
-			}
-			break;
-		
-		}
-		
-	}
+
 
 </script>
 
