@@ -65,19 +65,39 @@
 <form action="">
   <label><input type="radio" name="flash" value="Short" id="shortflash" checked = "checked"> Short<br></label>
   <label><input type="radio" name="flash" value="Quarter" id="qtrflash"> Qtr<br></label>
-  <label><input type="radio" name="flash" value="Half" id = halfflash"> Half</label>
+  <label><input type="radio" name="flash" value="Half" id = "halfflash"> Half</label>
 </form>
 
 <br><br><br>
 <form action="">
   <input type="checkbox" name="timesig" value="three" id="threefour"> 3/4<br>
 </form>
+<input type="button" id="toggle" value="Wake Lock is disabled" />
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </h1>
 </body>
+ 
+<script src="NoSleep.min.js"></script>
+    <script>
+      var noSleep = new NoSleep();
+      var wakeLockEnabled = false;
+      var toggleEl = document.getElementById("toggle");
+      toggleEl.addEventListener('click', function() {
+        if (!wakeLockEnabled) {
+          noSleep.enable(); // keep the screen on!
+          wakeLockEnabled = true;
+          toggleEl.value = "Wake Lock is enabled";
+          //document.body.style.backgroundColor = "green";
+        } else {
+          noSleep.disable(); // let the screen turn off.
+          wakeLockEnabled = false;
+          toggleEl.value = "Wake Lock is disabled";
+          //document.body.style.backgroundColor = "";
+        }
+      }, false);
+    </script>
 
-<script src="nosleep.min.js"></script>
 <script>
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
